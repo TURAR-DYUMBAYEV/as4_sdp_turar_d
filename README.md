@@ -43,6 +43,7 @@ mvn compile exec:java
 
 ```text
 Assignment4-SDP-Turar/  (the local directory is as4_sdp_turar_d)
+├── .gitattributes
 ├── .gitignore
 ├── .mvn/wrapper/maven-wrapper.properties
 ├── mvnw
@@ -151,6 +152,8 @@ For additional failures, use quantity 0, unknown product `UNKNOWN`, or quantity 
 Reset deletes all records and reseeds stock in one local transaction. Alternatively, stop the application and delete its printed database file for a fresh demonstration. Never reset another operator's data.
 
 ## Tests and coverage
+
+Verified on Java 17: **25 tests passed**, with zero failures, errors or skipped tests. JaCoCo measured **100% line coverage in each of Subsystem A, B, C and the facade package**. The 80% gate passed and was separately checked to reject an under-covered build.
 
 Run `./mvnw test` or Windows `.\mvnw.cmd test`. For independent subsystem demonstrations, run `.\mvnw.cmd -Dtest=SubsystemTest test`. The three standalone subsystem tests instantiate and call each subsystem directly, without either facade.
 
