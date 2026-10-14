@@ -1,0 +1,149 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam linetype ortho
+hide empty members
+title Assignment 4 - Variant 5 - E-Commerce Fulfillment
+class "Main" as Main
+class "Application" as Application
+class "ConsoleApp (Client)" as ConsoleApp
+package "ecommerce.facade" {
+ class OrderFulfillmentFacade {
+  +fulfillOrder(id, product, quantity)
+  +resume(id)
+  +compensate(id)
+  +snapshot(id)
+
+ }
+ class FulfillmentAdminFacade {
+  +orders()
+  +inspect(id)
+  +history(id)
+  +resume(id)
+  +compensate(id)
+  +inventory()
+  +reset(confirmed)
+
+ }
+}
+package "Subsystem A - ecommerce.subsystema" {
+ class InventoryReservation {
+  -status: NEW | RESERVED | RELEASED
+  +transition(next)
+
+ }
+ class OrderValidator {
+  +validate(id, product, quantity)
+ }
+ class InventoryManager {
+  +reserve(id, product, quantity)
++release(id)
+ }
+ class InventoryRepository {
+  +reserve(id, product, quantity)
++release(id)
++find(id)
++inventory()
+ }
+ InventoryManager --> OrderValidator
+ InventoryManager --> InventoryRepository
+ InventoryRepository --> InventoryReservation
+}
+package "Subsystem B - ecommerce.subsystemb" {
+ class PackingJob {
+  -status: NEW | PACKED | CANCELLED
+  +transition(next)
+
+ }
+ class WarehousePicker {
+  +validate(id, product, quantity, unavailable)
+ }
+ class PackingStation {
+  +pack(id, product, quantity, unavailable)
++cancel(id)
+ }
+ class WarehouseRepository {
+  +pack(id, product, quantity)
++cancel(id)
++find(id)
+ }
+ PackingStation --> WarehousePicker
+ PackingStation --> WarehouseRepository
+ WarehouseRepository --> PackingJob
+}
+package "Subsystem C - ecommerce.subsystemc" {
+ class Shipment {
+  -status: NEW | PAID | CONFIRMED | CANCELLED
+  -payment: UNPAID | CHARGED | REFUNDED
+  +pay()
+  +confirm(tracking)
+  +cancel()
+
+ }
+ class ShippingCarrier {
+  +register(id, unavailable)
+ }
+ class PaymentGateway {
+  +finalizeOrder(id, declined, shippingFailure)
++cancel(id)
+ }
+ class ShipmentRepository {
+  +find(id)
++save(shipment)
+ }
+ PaymentGateway --> ShippingCarrier
+ PaymentGateway --> ShipmentRepository
+ ShipmentRepository --> Shipment
+}
+package "ecommerce.persistence" {
+ class Database {
+  +transaction(work)
++execute(connection, sql, args)
++query(connection, sql, args)
+ }
+ class Workflow {
+  +id
++product
++quantity
++mode
++status
++error
+  +validateTransition(next)
+
+ }
+ class WorkflowRepository {
+  +create(...)
++get(id)
++transition(id, next)
++history(id)
+ }
+ WorkflowRepository --> Database
+ WorkflowRepository --> Workflow
+}
+Main ..> Application
+Main ..> ConsoleApp
+Application ..> OrderFulfillmentFacade : constructs dependencies
+Application ..> FulfillmentAdminFacade
+ConsoleApp --> OrderFulfillmentFacade
+ConsoleApp --> FulfillmentAdminFacade
+FulfillmentAdminFacade --> OrderFulfillmentFacade
+FulfillmentAdminFacade --> WorkflowRepository
+FulfillmentAdminFacade --> InventoryRepository
+OrderFulfillmentFacade --> WorkflowRepository
+OrderFulfillmentFacade --> InventoryManager : A
+OrderFulfillmentFacade ..> OrderValidator
+OrderFulfillmentFacade --> InventoryRepository
+OrderFulfillmentFacade --> PackingStation : B
+OrderFulfillmentFacade --> WarehouseRepository
+OrderFulfillmentFacade --> PaymentGateway : C
+OrderFulfillmentFacade --> ShipmentRepository
+InventoryRepository --> Database
+WarehouseRepository --> Database
+ShipmentRepository --> Database
+note bottom of OrderFulfillmentFacade
+ Forward: A -> B -> C
+ Compensation: C cleanup, then B -> A
+ All decisions read durable state.
+end note
+@enduml

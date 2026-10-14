@@ -1,0 +1,405 @@
+PROCESS 1: success, mandatory failures, carrier failure and pause after A
+SQLite database: C:\Users\dumba\Documents\ChatGPT\SDP\cli-verification-java17.db
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Unique order ID: Product (BOOK, LAPTOP, MOUSE): Quantity: Workflow[id=success, product=BOOK, quantity=3, mode=NORMAL, status=COMPLETED, error=]
+Workflow[id=success, product=BOOK, quantity=3, mode=NORMAL, status=COMPLETED, error=]
+A=RESERVED, B=PACKED, C=CONFIRMED payment=CHARGED tracking=TRACK-success
+{seq=1, event=NEW, created=2026-10-14 11:49:42}
+{seq=2, event=PENDING_B, created=2026-10-14 11:49:42}
+{seq=3, event=PENDING_C, created=2026-10-14 11:49:42}
+{seq=4, event=COMPLETED, created=2026-10-14 11:49:42}
+Current inventory: [{product=BOOK, stock=97}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Unique order ID: Product (BOOK, LAPTOP, MOUSE): Quantity: Workflow[id=b-fail, product=BOOK, quantity=3, mode=FAIL_B, status=COMPENSATED, error=Packing station is unavailable.]
+Workflow[id=b-fail, product=BOOK, quantity=3, mode=FAIL_B, status=COMPENSATED, error=Packing station is unavailable.]
+A=RELEASED, B=ABSENT, C=ABSENT
+{seq=5, event=NEW, created=2026-10-14 11:49:43}
+{seq=6, event=PENDING_B, created=2026-10-14 11:49:43}
+{seq=7, event=FAILURE before compensation: A=RESERVED, B=ABSENT, C=ABSENT; Packing station is unavailable., created=2026-10-14 11:49:43}
+{seq=8, event=COMPENSATING, created=2026-10-14 11:49:43}
+{seq=9, event=COMPENSATION starting: A=RESERVED, B=ABSENT, C=ABSENT, created=2026-10-14 11:49:43}
+{seq=10, event=A_RELEASED, created=2026-10-14 11:49:43}
+{seq=11, event=COMPENSATED, created=2026-10-14 11:49:43}
+Current inventory: [{product=BOOK, stock=97}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Unique order ID: Product (BOOK, LAPTOP, MOUSE): Quantity: Workflow[id=c-fail, product=BOOK, quantity=3, mode=FAIL_C, status=COMPENSATED, error=Payment was declined.]
+Workflow[id=c-fail, product=BOOK, quantity=3, mode=FAIL_C, status=COMPENSATED, error=Payment was declined.]
+A=RELEASED, B=CANCELLED, C=CANCELLED payment=UNPAID tracking=
+{seq=12, event=NEW, created=2026-10-14 11:49:43}
+{seq=13, event=PENDING_B, created=2026-10-14 11:49:43}
+{seq=14, event=PENDING_C, created=2026-10-14 11:49:43}
+{seq=15, event=FAILURE before compensation: A=RESERVED, B=PACKED, C=NEW payment=UNPAID tracking=; Payment was declined., created=2026-10-14 11:49:43}
+{seq=16, event=COMPENSATING, created=2026-10-14 11:49:43}
+{seq=17, event=COMPENSATION starting: A=RESERVED, B=PACKED, C=NEW payment=UNPAID tracking=, created=2026-10-14 11:49:43}
+{seq=18, event=C_CANCELLED, created=2026-10-14 11:49:43}
+{seq=19, event=B_CANCELLED, created=2026-10-14 11:49:43}
+{seq=20, event=A_RELEASED, created=2026-10-14 11:49:44}
+{seq=21, event=COMPENSATED, created=2026-10-14 11:49:44}
+Current inventory: [{product=BOOK, stock=97}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Unique order ID: Product (BOOK, LAPTOP, MOUSE): Quantity: Workflow[id=shipping-fail, product=BOOK, quantity=3, mode=FAIL_SHIPPING, status=COMPENSATED, error=Shipping carrier is unavailable after payment.]
+Workflow[id=shipping-fail, product=BOOK, quantity=3, mode=FAIL_SHIPPING, status=COMPENSATED, error=Shipping carrier is unavailable after payment.]
+A=RELEASED, B=CANCELLED, C=CANCELLED payment=REFUNDED tracking=
+{seq=22, event=NEW, created=2026-10-14 11:49:44}
+{seq=23, event=PENDING_B, created=2026-10-14 11:49:44}
+{seq=24, event=PENDING_C, created=2026-10-14 11:49:44}
+{seq=25, event=FAILURE before compensation: A=RESERVED, B=PACKED, C=CANCELLED payment=REFUNDED tracking=; Shipping carrier is unavailable after payment., created=2026-10-14 11:49:44}
+{seq=26, event=COMPENSATING, created=2026-10-14 11:49:44}
+{seq=27, event=COMPENSATION starting: A=RESERVED, B=PACKED, C=CANCELLED payment=REFUNDED tracking=, created=2026-10-14 11:49:44}
+{seq=28, event=C_CANCELLED, created=2026-10-14 11:49:44}
+{seq=29, event=B_CANCELLED, created=2026-10-14 11:49:44}
+{seq=30, event=A_RELEASED, created=2026-10-14 11:49:44}
+{seq=31, event=COMPENSATED, created=2026-10-14 11:49:44}
+Current inventory: [{product=BOOK, stock=97}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Unique order ID: Product (BOOK, LAPTOP, MOUSE): Quantity: Workflow[id=restart-a, product=BOOK, quantity=2, mode=PAUSE_AFTER_A, status=PENDING_B, error=]
+Workflow[id=restart-a, product=BOOK, quantity=2, mode=PAUSE_AFTER_A, status=PENDING_B, error=]
+A=RESERVED, B=ABSENT, C=ABSENT
+{seq=32, event=NEW, created=2026-10-14 11:49:44}
+{seq=33, event=PENDING_B, created=2026-10-14 11:49:44}
+Current inventory: [{product=BOOK, stock=95}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+
+
+PROCESS 2: inspect persisted orders, resume after A and pause after B
+SQLite database: C:\Users\dumba\Documents\ChatGPT\SDP\cli-verification-java17.db
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Workflow[id=b-fail, product=BOOK, quantity=3, mode=FAIL_B, status=COMPENSATED, error=Packing station is unavailable.]
+Workflow[id=c-fail, product=BOOK, quantity=3, mode=FAIL_C, status=COMPENSATED, error=Payment was declined.]
+Workflow[id=restart-a, product=BOOK, quantity=2, mode=PAUSE_AFTER_A, status=PENDING_B, error=]
+Workflow[id=shipping-fail, product=BOOK, quantity=3, mode=FAIL_SHIPPING, status=COMPENSATED, error=Shipping carrier is unavailable after payment.]
+Workflow[id=success, product=BOOK, quantity=3, mode=NORMAL, status=COMPLETED, error=]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Order ID: Workflow[id=restart-a, product=BOOK, quantity=2, mode=PAUSE_AFTER_A, status=PENDING_B, error=]
+A=RESERVED, B=ABSENT, C=ABSENT
+{seq=32, event=NEW, created=2026-10-14 11:49:44}
+{seq=33, event=PENDING_B, created=2026-10-14 11:49:44}
+Current inventory: [{product=BOOK, stock=95}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Order ID: Workflow[id=restart-a, product=BOOK, quantity=2, mode=PAUSE_AFTER_A, status=COMPLETED, error=]
+Workflow[id=restart-a, product=BOOK, quantity=2, mode=PAUSE_AFTER_A, status=COMPLETED, error=]
+A=RESERVED, B=PACKED, C=CONFIRMED payment=CHARGED tracking=TRACK-restart-a
+{seq=32, event=NEW, created=2026-10-14 11:49:44}
+{seq=33, event=PENDING_B, created=2026-10-14 11:49:44}
+{seq=34, event=PENDING_C, created=2026-10-14 11:49:47}
+{seq=35, event=COMPLETED, created=2026-10-14 11:49:47}
+Current inventory: [{product=BOOK, stock=95}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Unique order ID: Product (BOOK, LAPTOP, MOUSE): Quantity: Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=PENDING_C, error=]
+Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=PENDING_C, error=]
+A=RESERVED, B=PACKED, C=ABSENT
+{seq=36, event=NEW, created=2026-10-14 11:49:47}
+{seq=37, event=PENDING_B, created=2026-10-14 11:49:47}
+{seq=38, event=PENDING_C, created=2026-10-14 11:49:47}
+Current inventory: [{product=BOOK, stock=91}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+
+
+PROCESS 3: resume after B and compensate twice
+SQLite database: C:\Users\dumba\Documents\ChatGPT\SDP\cli-verification-java17.db
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Order ID: Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=PENDING_C, error=]
+A=RESERVED, B=PACKED, C=ABSENT
+{seq=36, event=NEW, created=2026-10-14 11:49:47}
+{seq=37, event=PENDING_B, created=2026-10-14 11:49:47}
+{seq=38, event=PENDING_C, created=2026-10-14 11:49:47}
+Current inventory: [{product=BOOK, stock=91}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Order ID: Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=COMPLETED, error=]
+Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=COMPLETED, error=]
+A=RESERVED, B=PACKED, C=CONFIRMED payment=CHARGED tracking=TRACK-restart-b
+{seq=36, event=NEW, created=2026-10-14 11:49:47}
+{seq=37, event=PENDING_B, created=2026-10-14 11:49:47}
+{seq=38, event=PENDING_C, created=2026-10-14 11:49:47}
+{seq=39, event=COMPLETED, created=2026-10-14 11:49:48}
+Current inventory: [{product=BOOK, stock=91}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Order ID: Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=COMPENSATED, error=]
+Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=COMPENSATED, error=]
+A=RELEASED, B=CANCELLED, C=CANCELLED payment=REFUNDED tracking=
+{seq=36, event=NEW, created=2026-10-14 11:49:47}
+{seq=37, event=PENDING_B, created=2026-10-14 11:49:47}
+{seq=38, event=PENDING_C, created=2026-10-14 11:49:47}
+{seq=39, event=COMPLETED, created=2026-10-14 11:49:48}
+{seq=40, event=COMPENSATING, created=2026-10-14 11:49:48}
+{seq=41, event=COMPENSATION starting: A=RESERVED, B=PACKED, C=CONFIRMED payment=CHARGED tracking=TRACK-restart-b, created=2026-10-14 11:49:48}
+{seq=42, event=C_CANCELLED, created=2026-10-14 11:49:48}
+{seq=43, event=B_CANCELLED, created=2026-10-14 11:49:48}
+{seq=44, event=A_RELEASED, created=2026-10-14 11:49:48}
+{seq=45, event=COMPENSATED, created=2026-10-14 11:49:48}
+Current inventory: [{product=BOOK, stock=95}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+Order ID: Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=COMPENSATED, error=]
+Workflow[id=restart-b, product=BOOK, quantity=4, mode=PAUSE_AFTER_B, status=COMPENSATED, error=]
+A=RELEASED, B=CANCELLED, C=CANCELLED payment=REFUNDED tracking=
+{seq=36, event=NEW, created=2026-10-14 11:49:47}
+{seq=37, event=PENDING_B, created=2026-10-14 11:49:47}
+{seq=38, event=PENDING_C, created=2026-10-14 11:49:47}
+{seq=39, event=COMPLETED, created=2026-10-14 11:49:48}
+{seq=40, event=COMPENSATING, created=2026-10-14 11:49:48}
+{seq=41, event=COMPENSATION starting: A=RESERVED, B=PACKED, C=CONFIRMED payment=CHARGED tracking=TRACK-restart-b, created=2026-10-14 11:49:48}
+{seq=42, event=C_CANCELLED, created=2026-10-14 11:49:48}
+{seq=43, event=B_CANCELLED, created=2026-10-14 11:49:48}
+{seq=44, event=A_RELEASED, created=2026-10-14 11:49:48}
+{seq=45, event=COMPENSATED, created=2026-10-14 11:49:48}
+Current inventory: [{product=BOOK, stock=95}, {product=LAPTOP, stock=20}, {product=MOUSE, stock=50}]
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
+{product=BOOK, stock=95}
+{product=LAPTOP, stock=20}
+{product=MOUSE, stock=50}
+
+===== E-COMMERCE FULFILLMENT =====
+1. Create and fulfill order
+2. Show all orders
+3. Inspect order and history
+4. Fail B: station unavailable
+5. Fail C: payment declined
+6. Resume interrupted workflow
+7. Manually compensate order
+8. Show inventory
+9. Show independent subsystem test instructions
+10. Reset demo data
+11. Pause after A
+12. Pause after B
+13. Fail shipping after payment
+0. Exit
