@@ -41,6 +41,7 @@ public final class ConsoleApp {
               + "11. Pause after A\n"
               + "12. Pause after B\n"
               + "13. Fail shipping after payment\n"
+              + "14. Fail payment gateway timeout\n"
               + "0. Exit");
       if (!input.hasNextLine()) return;
       String choice = input.nextLine().trim();
@@ -77,7 +78,8 @@ public final class ConsoleApp {
           case "11" -> create(Workflow.Mode.PAUSE_AFTER_A);
           case "12" -> create(Workflow.Mode.PAUSE_AFTER_B);
           case "13" -> create(Workflow.Mode.FAIL_SHIPPING);
-          default -> out.println("Choose a menu number from 0 to 13.");
+          case "14" -> create(Workflow.Mode.FAIL_PAYMENT_TIMEOUT);
+          default -> out.println("Choose a menu number from 0 to 14.");
         }
       } catch (NumberFormatException e) {
         out.println("Quantity must be a whole number.");

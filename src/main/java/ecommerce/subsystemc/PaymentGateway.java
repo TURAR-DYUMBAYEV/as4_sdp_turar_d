@@ -12,6 +12,11 @@ public final class PaymentGateway {
   }
 
   public Shipment finalizeOrder(String id, boolean declined, boolean shippingFailure) {
+    return finalizeOrder(id, declined, shippingFailure, false);
+  }
+
+  public Shipment finalizeOrder(
+      String id, boolean declined, boolean shippingFailure, boolean paymentTimeout) {
     if (id == null || id.isBlank()) throw new StageException("Payment order ID is required.");
     var s = repository.find(id);
     if (s == null) {
@@ -23,6 +28,8 @@ public final class PaymentGateway {
       throw new StageException("Shipment was cancelled.");
     if (s.status() == Shipment.Status.NEW) {
       if (declined) throw new StageException("Payment was declined.");
+      if (paymentTimeout)
+        throw new StageException("Payment gateway timed out before authorization; no charge was made.");
       s.pay();
       repository.save(s); // Durable charge record before contacting the simulated carrier.
     }

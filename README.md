@@ -140,6 +140,7 @@ Use BOOK and quantity 3 unless specified. Choose unique IDs such as `success-1`,
 | 4 | B unavailable after A commits: failure snapshot shows A RESERVED and B ABSENT. A becomes RELEASED, workflow COMPENSATED, stock restored. No B cancellation event. |
 | 5 | C payment decline after A/B commit: snapshot shows A RESERVED, B PACKED, C NEW. History records C cleanup, **B_CANCELLED before A_RELEASED**. Stock restored, payment UNPAID. |
 | 13 | Carrier failure after charge: payment becomes REFUNDED; B and A are compensated. |
+| 14 | Payment gateway timeout after A and B commit: no charge is made; B and A are compensated. |
 | 11 | Pause after A: PENDING_B. Exit with 0, start again using the same database path, inspect with 3, resume with 6. |
 | 12 | Pause after B: PENDING_C. Restart and either resume with 6 or compensate with 7. |
 | 7 | Manually compensate an order. Repeat and verify stock is not restored twice. |

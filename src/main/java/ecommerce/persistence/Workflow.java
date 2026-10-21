@@ -9,6 +9,7 @@ public record Workflow(
     FAIL_B,
     FAIL_C,
     FAIL_SHIPPING,
+    FAIL_PAYMENT_TIMEOUT,
     PAUSE_AFTER_A,
     PAUSE_AFTER_B
   }

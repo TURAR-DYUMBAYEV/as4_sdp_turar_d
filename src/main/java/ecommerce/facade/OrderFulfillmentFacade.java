@@ -68,7 +68,11 @@ public final class OrderFulfillmentFacade {
       }
       w = workflows.get(id);
       if (w.status() == PENDING_C) {
-        payments.finalizeOrder(id, w.mode() == FAIL_C, w.mode() == FAIL_SHIPPING);
+        payments.finalizeOrder(
+            id,
+            w.mode() == FAIL_C,
+            w.mode() == FAIL_SHIPPING,
+            w.mode() == FAIL_PAYMENT_TIMEOUT);
         workflows.transition(id, COMPLETED);
       }
       return workflows.get(id);

@@ -116,6 +116,20 @@ class FulfillmentTest {
   }
 
   @Test
+  void paymentGatewayTimeoutAfterWarehouseCommitCompensatesWithoutCharging() {
+    assertEquals(
+        COMPENSATED,
+        app.fulfillment().fulfillOrder("timeout", "BOOK", 3, FAIL_PAYMENT_TIMEOUT).status());
+    var history = events("timeout");
+    assertTrue(history.stream().anyMatch(e -> e.contains("Payment gateway timed out")));
+    assertTrue(history.indexOf("B_CANCELLED") < history.indexOf("A_RELEASED"));
+    assertEquals("UNPAID", new ShipmentRepository(db).find("timeout").payment());
+    assertEquals(Shipment.Status.CANCELLED, new ShipmentRepository(db).find("timeout").status());
+    assertEquals(PackingJob.Status.CANCELLED, new WarehouseRepository(db).find("timeout").status());
+    thenInventoryShouldBe(100);
+  }
+
+  @Test
   void pauseAfterAAndRestartResumesFromDisk() {
     assertEquals(PENDING_B, app.fulfillment().fulfillOrder("a", "BOOK", 3, PAUSE_AFTER_A).status());
     thenInventoryShouldBe(97);

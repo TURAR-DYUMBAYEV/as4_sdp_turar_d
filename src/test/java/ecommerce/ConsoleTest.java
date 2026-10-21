@@ -35,6 +35,10 @@ class ConsoleTest {
             + "o4\n"
             + "BOOK\n"
             + "1\n"
+            + "14\n"
+            + "o-timeout\n"
+            + "BOOK\n"
+            + "1\n"
             + "11\n"
             + "o5\n"
             + "BOOK\n"
@@ -52,6 +56,7 @@ class ConsoleTest {
     assertTrue(out.contains("B_CANCELLED"));
     assertTrue(out.contains("A_RELEASED"));
     assertTrue(out.contains("REFUNDED"));
+    assertTrue(out.contains("Payment gateway timed out"));
     app = new Application(db);
     bytes.reset();
     new ConsoleApp(
